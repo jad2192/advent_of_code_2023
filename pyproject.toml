@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "aoc2022"
+name = "aoc2023"
 version = "0.1.0"
-description = "Advent of Code 2022"
+description = "Advent of Code 2023"
 authors = ["James Diotte <JamesDiotte@gmail.com>"]
 
 [tool.poetry.dependencies]

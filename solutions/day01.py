@@ -21,6 +21,8 @@ def strip_calibration_line(calibration_line: str, use_explicit_digits_only: bool
     """Remove non-numeric strings from calibration, optionally replace spelled out digits with value"""
     translation_dictionary = {"": ""} if use_explicit_digits_only else DIGIT_MAP
     for key, val in translation_dictionary.items():
+        # replace spelled out digit with value, padded by spelled out version in case of letter overlap
+        # e.g. eightwothree
         calibration_line = calibration_line.replace(key, f"{key}{val}{key}")
     return "".join(char for char in calibration_line if char.isdigit())
 
