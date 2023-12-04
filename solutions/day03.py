@@ -22,7 +22,9 @@ def symbol_check(symbol: str) -> bool:
     return symbol != "." and not symbol.isdigit()
 
 
-def get_parts_numbers(schematic: Schematic, return_type: Literal["part_nos", "gear_ratios"] = "part_nos") -> List[int]:
+def implement_schematic(
+    schematic: Schematic, return_type: Literal["part_nos", "gear_ratios"] = "part_nos"
+) -> List[int]:
     N, M = len(schematic), len(schematic[0])  # num rows and cols
     # Parse grid postions of all integers
     part_nos = []
@@ -60,10 +62,10 @@ def get_parts_numbers(schematic: Schematic, return_type: Literal["part_nos", "ge
 
 # Tests
 test_schema = parse_schematic("inputs/day03/test.txt")
-assert sum(get_parts_numbers(test_schema)) == 4361
-assert sum(get_parts_numbers(test_schema, return_type="gear_ratios")) == 467835
+assert sum(implement_schematic(test_schema)) == 4361
+assert sum(implement_schematic(test_schema, return_type="gear_ratios")) == 467835
 
 # Solutions
 schema = parse_schematic("inputs/day03/main.txt")
-print(f"Part 1: The Sum of Parts Numbers - {sum(get_parts_numbers(schema))}")
-print(f"Part 2: The Sum of Gear Rations - {sum(get_parts_numbers(schema, return_type='gear_ratios'))}")
+print(f"Part 1: The Sum of Parts Numbers - {sum(implement_schematic(schema))}")
+print(f"Part 2: The Sum of Gear Rations - {sum(implement_schematic(schema, return_type='gear_ratios'))}")
