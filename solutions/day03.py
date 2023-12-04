@@ -42,7 +42,7 @@ def implement_schematic(
                 neighbors = reduce(set.union, [generate_grid_neighbors(pos[0], pos[1], N, M) for pos in cur_positions])
                 if any(symbol_check(schematic[nbr[0]][nbr[1]]) for nbr in neighbors):
                     part_nos.append(int(cur_int))
-                    # keep track of individual digit positions and there corresponding part no
+                    # keep track of individual digit positions and their corresponding part no
                     #  / all digit positions in the integer.
                     part_pos_dict = part_pos_dict | {pos: (tuple(cur_positions), int(cur_int)) for pos in cur_positions}
                 cur_int = ""
