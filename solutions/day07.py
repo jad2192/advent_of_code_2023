@@ -16,13 +16,10 @@ class Hand:
             self.card_ranks = [WILD_CARD_RANK_ORDER.index(c) for c in list(self.hand)]
 
     def hand_strength(self) -> int:
-        counts = defaultdict(int)
-        counts["dummy"] = 0
+        counts = {card: self.hand.count(card) for card in self.hand + ["dummy"]}
         joker_count = 0
-        for card in self.hand:
-            counts[card] += 1
         if self.jokers_wild:
-            joker_count = int(counts["J"])
+            joker_count = int(counts.get("J", 0))
             counts["J"] = 0
         sorted_cnts = sorted(counts.values())
         return 2 * (sorted_cnts[-1] + joker_count) + sorted_cnts[-2]  # Dummy ensures len(sorted_count) >= 2
