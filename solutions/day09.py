@@ -6,17 +6,14 @@ def load_sequences(input_fp: str) -> List[List[int]]:
 
 
 def extrapolate_sequence(sequence: List[int], extrap_forward: bool) -> int:
-    differences = [sequence]
-    cur_seq = sequence
+    differences = [sequence] if extrap_forward else [sequence[::-1]]
+    cur_seq = differences[0]
     while set(cur_seq) != {0} and len(cur_seq) > 1:
         cur_seq = [cur_seq[k + 1] - cur_seq[k] for k in range(len(cur_seq) - 1)]
         differences.append(cur_seq)
     exp_val = 0
     for diff_seq in differences[::-1]:
-        if extrap_forward:
-            exp_val += diff_seq[-1]
-        else:
-            exp_val = diff_seq[0] - exp_val
+        exp_val += diff_seq[-1]
     return exp_val
 
 
