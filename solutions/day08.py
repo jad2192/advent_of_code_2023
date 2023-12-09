@@ -1,5 +1,5 @@
 from functools import reduce
-from math import gcd
+from math import lcm
 from typing import Dict, List, Tuple, TypeAlias
 
 NetworkMap: TypeAlias = Dict[str, Dict[str, str]]
@@ -40,7 +40,7 @@ def count_spooky_ghost_steps(input_fp: str) -> int:
         cycles.extend(get_cycles(step_seq, network_map, start))
     if all(cycle[1] % cycle[1] == 0 for cycle in cycles):
         mult_set = [c[0] for c in cycles] + list(set(c[1] // c[0] for c in cycles))
-        return reduce(lambda a, b: a * b // gcd(a, b), mult_set)
+        return lcm(*mult_set)
     else:
         return 1  # Much harder.... But my data seems to satisfy above...
 
