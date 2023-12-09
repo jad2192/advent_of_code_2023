@@ -19,7 +19,7 @@ def count_steps(input_fp: str) -> int:
     return steps
 
 
-def get_cycles(step_seq: str, network_map: NetworkMap, start_pos: str = "AAA") -> List[Tuple[int, int]]:
+def get_cycles(step_seq: str, network_map: NetworkMap, start_pos: str) -> List[Tuple[int, int]]:
     steps, position, dx = 0, start_pos, 0
     seen_pos, z_locs = {}, []
     while (dx, position) not in seen_pos:
@@ -38,11 +38,11 @@ def count_spooky_ghost_steps(input_fp: str) -> int:
     cycles = []
     for start in [pos for pos in network_map if pos.endswith("A")]:
         cycles.extend(get_cycles(step_seq, network_map, start))
-    if all(cycle[1] % cycle[1] == 0 for cycle in cycles):
-        mult_set = [c[0] for c in cycles] + list(set(c[1] // c[0] for c in cycles))
-        return lcm(*mult_set)
+    if all(cycle[1] % cycle[0] == 0 for cycle in cycles):
+        return lcm(*[c[0] for c in cycles])
+    # Much harder needs CRT + coprime conditions on cycle lengths...But my data seems to satisfy above...
     else:
-        return 1  # Much harder.... But my data seems to satisfy above...
+        return 1
 
 
 # Tests
