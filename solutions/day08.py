@@ -38,6 +38,8 @@ def count_spooky_ghost_steps(input_fp: str) -> int:
     cycles = []
     for start in [pos for pos in network_map if pos.endswith("A")]:
         cycles.extend(get_cycles(step_seq, network_map, start))
+    # This only works assuming one Z pos in cycle per start. If this were not the case
+    # we'd have to take the min LCM over all choices of a single Z pos per start.
     if all(cycle[1] % cycle[0] == 0 for cycle in cycles):
         return lcm(*[c[0] for c in cycles])
     # Much harder needs CRT + coprime conditions on cycle lengths...But my data seems to satisfy above...
